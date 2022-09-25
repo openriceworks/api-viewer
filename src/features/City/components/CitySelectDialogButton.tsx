@@ -42,6 +42,7 @@ const CitySelectDialogButton = (props:{onSelectCity: (city:City) => void}) => {
           </path>
         </svg>
       </IconButton>
+      {/* TODO create dialog component */}
       <dialog ref={ref} className="rounded bg-white w-1/2 h-1/2 flex-row">
         <div className="h-1/6">
           <h2 className="font-bold text-2xl" >choose city</h2>
