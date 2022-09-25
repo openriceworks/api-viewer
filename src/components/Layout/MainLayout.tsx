@@ -4,14 +4,20 @@ import { City } from "../../features/City/types"
 import OpenMeteoCard from "../../features/OpenMeteo/components/OpenMeteoCard"
 import { OpenMeteoParams } from "../../features/OpenMeteo/types"
 import FlexWrapLayout from "./FlexWrapLayout"
+import githubLogo from "../../assets/GitHub-Mark-64px.png"
 
 const MainLayout = () => {
     const [paramsList, setParamsList] = useState<(OpenMeteoParams & City)[]>([])
 
     return (
       <div className="w-screen h-screen">
-        <div className='w-full h-1/12 shadow'>
+        <div className='w-full h-1/12 shadow relative'>
           <h1 className='font-bold'>API-viewer</h1>
+          <div className="absolute top-0 right-0">
+            <a href="https://github.com/openriceworks/api-viewer">
+              <img src={githubLogo}/>
+            </a>
+          </div>
         </div>
         <div className='w-full h-11/12 overflow-auto bg-slate-100'>
           <FlexWrapLayout>
