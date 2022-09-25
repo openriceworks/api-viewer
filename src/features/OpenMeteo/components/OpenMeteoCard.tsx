@@ -8,7 +8,11 @@ const OpenMeteoCard = (props:{data: (OpenMeteoParams & City)}) => {
   const {data} = props
   return (
     <Card>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={
+        <div className="w-48 h-48">
+          <div className="animate-spin h-48 w-48 border-4 border-blue-500 rounded-full border-t-transparent"></div>
+        </div>
+      }>
         <div className="relative">
           <img src={data.photoSrc}/>
           <div className="absolute bottom-0 right-0">
