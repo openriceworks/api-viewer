@@ -1,19 +1,11 @@
-import Card from "../Elements/Card"
+import React from "react"
 
-const FlexWrapLayout = (props:{count: number}) => {
-
-    const {count} = props
-    const displayCardList = (count: number) => [...Array(count)].map(() => 
-    (
-      <div className='w-96'>
-        <Card/>
-      </div>  
-    ))
-
+const FlexWrapLayout = (props:{children: React.ReactNode[]}) => {
+    const {children} = props
     return (
         <div className='flex flex-wrap'>
             {
-                displayCardList(count)
+              children
             }
         </div>
     )
