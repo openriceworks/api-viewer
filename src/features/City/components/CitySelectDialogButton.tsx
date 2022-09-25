@@ -28,6 +28,8 @@ const CitySelectDialogButton = (props:{onSelectCity: (city:City) => void}) => {
       props.onSelectCity(city)
       closeModal()
       setCity(null)
+    } else {
+      alert("must select city")
     }
   }
 
@@ -49,8 +51,9 @@ const CitySelectDialogButton = (props:{onSelectCity: (city:City) => void}) => {
         </div>
         <div className="h-1/6 flex justify-end">
           <span className="p-1">
-          <Button onClick={() => onAddCity(city)}>add city</Button>
+            <Button onClick={() => onAddCity(city)}>add city</Button>
           </span>
+
           <span className="p-1">
             <Button color="slate" onClick={closeModal}>close</Button>
           </span>

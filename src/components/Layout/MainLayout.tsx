@@ -3,7 +3,6 @@ import CitySelectDialogButton from "../../features/City/components/CitySelectDia
 import { City } from "../../features/City/types"
 import OpenMeteoCardContent from "../../features/OpenMeteo/components/OpenMeteoCardContent"
 import { OpenMeteoParams } from "../../features/OpenMeteo/types"
-import Button from "../Elements/Button"
 import Card from "../Elements/Card"
 import FlexWrapLayout from "./FlexWrapLayout"
 
@@ -12,10 +11,15 @@ const MainLayout = () => {
     const getCardList = (paramsList: (OpenMeteoParams & City)[]) => 
       paramsList.map(params =>
         (
-          <div className="w-96">
+          <div className="w-96" key={params.cityName}>
             <Card>
               <Suspense fallback={<p>Loading...</p>}>
-                <h2 className="font-bold text-2xl">{params.cityName}</h2>
+                <div className="relative">
+                  <img src={params.photoSrc}/>
+                  <div className="absolute bottom-0 right-0">
+                    <h2 className="font-bold text-2xl text-white">{params.cityName}</h2>
+                  </div>
+                </div>
                 <OpenMeteoCardContent params={params}/>
               </Suspense>
             </Card>

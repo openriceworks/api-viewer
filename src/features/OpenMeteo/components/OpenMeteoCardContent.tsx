@@ -1,27 +1,35 @@
 import getForecast from "../api/getForecast"
-import { OpenMeteoParams, OpenMeteoResponse } from "../types"
+import { OpenMeteoParams } from "../types"
 import { getWeatherCodeLabel } from "../utils"
+import { useQuery } from "@tanstack/react-query"
+import { City } from "../../City/types"
 
-const showData  = (data: OpenMeteoResponse) => (
-  <div>
-    <div>
-      {
-        data.currentWeather != null ?
-          getWeatherCodeLabel(data.currentWeather.weathercode)
-          : ""
-      }
-    </div>
-  </div>
-)
 
-let data: OpenMeteoResponse | null | undefined = undefined
+const openMeteoCardContent = (props: { params: OpenMeteoParams & City }) => {
 
-const openMeteoCardContent = (props: {params: OpenMeteoParams}) => {
-  if(data === undefined) {
-    throw getForecast(props.params).then(res => data = res)
+  const { data } = useQuery(['openMeteo', props.params.cityName], () => getForecast(props.params))
+
+  if (data != null) {
+    return (
+      <div>
+        <div>
+          {
+            data.currentWeather != null ?
+              getWeatherCodeLabel(data.currentWeather.weathercode)
+              : ""
+          }
+        </div>
+        <div>
+          temperature: {data.currentWeather?.temperature}℃
+        </div>
+        <div>
+          windspeed: {data.currentWeather?.windspeed}Km/h
+        </div>
+      </div>
+    )
   } else {
     return (
-      data != null ? showData(data) : <div></div>
+      <div></div>
     )
   }
 }
