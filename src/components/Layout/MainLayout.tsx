@@ -1,4 +1,6 @@
 import { Suspense, useState } from "react"
+import CitySelectDialogButton from "../../features/City/components/CitySelectDialogButton"
+import { City } from "../../features/City/types"
 import OpenMeteoCardContent from "../../features/OpenMeteo/components/OpenMeteoCardContent"
 import { OpenMeteoParams } from "../../features/OpenMeteo/types"
 import Button from "../Elements/Button"
@@ -6,17 +8,20 @@ import Card from "../Elements/Card"
 import FlexWrapLayout from "./FlexWrapLayout"
 
 const MainLayout = () => {
-    const [paramsList, setParamsList] = useState<OpenMeteoParams[]>([])
-    const getCardList = (paramsList: OpenMeteoParams[]) => 
-      paramsList.map(params => (
-        <div className="w-96">
-          <Card>
-            <Suspense fallback={<p>Loading...</p>}>
-              <OpenMeteoCardContent params={params}/>
-            </Suspense>
-          </Card>
-        </div>
-      ) )
+    const [paramsList, setParamsList] = useState<(OpenMeteoParams & City)[]>([])
+    const getCardList = (paramsList: (OpenMeteoParams & City)[]) => 
+      paramsList.map(params =>
+        (
+          <div className="w-96">
+            <Card>
+              <Suspense fallback={<p>Loading...</p>}>
+                <h2 className="font-bold text-2xl">{params.cityName}</h2>
+                <OpenMeteoCardContent params={params}/>
+              </Suspense>
+            </Card>
+          </div>
+        )
+      )
 
     return (
       <div className="w-screen h-screen">
@@ -31,13 +36,12 @@ const MainLayout = () => {
           </FlexWrapLayout>
         </div>
         <div className='fixed z-90 bottom-10 right-8'>
-          <Button onClick={() => setParamsList(state => state.concat({
-            latitude: 35.6785,
-            longitude: 139.6823,
-            currentWeather: true
-            }))}>
-            add card
-          </Button>
+          <CitySelectDialogButton onSelectCity={
+            (city) => setParamsList(state => state.concat({
+              ...city,
+              currentWeather: true
+            }))
+          }/>
         </div>
       </div>
     )
