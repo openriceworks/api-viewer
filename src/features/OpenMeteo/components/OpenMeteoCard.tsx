@@ -16,7 +16,11 @@ const OpenMeteoCard = (props:{data: (OpenMeteoParams & City)}) => {
         <div className="relative">
           <img src={data.photoSrc}/>
           <div className="absolute bottom-0 right-0">
-            <h2 className="font-bold text-2xl text-white">{data.cityName}</h2>
+            <h2 className="
+            font-bold
+            text-2xl
+            text-white dark:text-zinc-300
+            ">{data.cityName}</h2>
           </div>
         </div>
         <OpenMeteoCardContent params={data}/>
